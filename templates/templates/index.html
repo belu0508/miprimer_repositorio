@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Trámites</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema de Gestión de Trámites de la Municipalidad Provincial de Yau</h1>
+        </header>
+
+        <!-- Sección de consulta de estado de trámites -->
+        <section id="consulta-seccion">
+            <h2>Consultar Estado de Trámite</h2>
+            <form id="consulta-form">
+                <label for="id_tramite">ID del Trámite:</label>
+                <input type="text" id="id_tramite" name="id_tramite" placeholder="Ingrese el ID de su trámite" required>
+                <button type="submit">Consultar</button>
+            </form>
+            <div id="estado-tramite" class="resultado"></div>
+        </section>
+
+        <!-- Sección para ingresar nuevos trámites -->
+        <section id="nuevos-tramites">
+            <h2>Ingresar Nuevo Trámite</h2>
+            <form id="nuevo-tramite-form">
+                <label for="descripcion_tramite">Descripción del Trámite:</label>
+                <textarea id="descripcion_tramite" name="descripcion_tramite" rows="4" placeholder="Ingrese la descripción del trámite" required></textarea>
+
+                <label for="tipo_tramite">Tipo de Trámite:</label>
+                <select id="tipo_tramite" name="tipo_tramite" required>
+                    <option value="licencia">Licencia</option>
+                    <option value="permiso">Permiso</option>
+                    <option value="servicio">Servicio</option>
+                </select>
+
+                <button type="submit">Registrar Trámite</button>
+            </form>
+            <div id="confirmacion-tramite" class="resultado"></div>
+        </section>
+
+        <!-- Sistema de alertas -->
+        <section id="alertas">
+            <h2>Notificaciones</h2>
+            <div id="alertas-container">
+                <!-- Aquí se mostrarán las alertas -->
+            </div>
+        </section>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
