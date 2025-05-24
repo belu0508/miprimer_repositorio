@@ -45,6 +45,16 @@ if opcion == "Consulta de Trámites":
             st.write(f"**Estado**: {tramite['estado']}")
             st.write(f"**Fecha de Solicitud**: {tramite['fecha_solicitud']}")
             st.write(f"**Prioridad**: {tramite['prioridad']}")
+            
+            # Alertas basadas en el estado del trámite
+            if tramite['estado'] == 'Pendiente':
+                st.warning("🚨 **Alerta**: Tu trámite está pendiente de revisión. ¡Pronto se procesará!")
+            elif tramite['estado'] == 'En Proceso':
+                st.info("🔄 **Estado en Progreso**: El trámite está siendo procesado.")
+            elif tramite['estado'] == 'Completado':
+                st.success("✅ **Trámite Completado**: El trámite ha sido aprobado y está finalizado.")
+            elif tramite['estado'] == 'Rechazado':
+                st.error("❌ **Trámite Rechazado**: Lamentablemente tu solicitud ha sido rechazada.")
         else:
             st.error("No se ha encontrado un trámite con ese ID.")
     
