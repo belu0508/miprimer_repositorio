@@ -1,17 +1,13 @@
 import streamlit as st
 import pandas as pd
-import random
 import time
 
-# Simulación de los trámites en la municipalidad (esto sería reemplazado por datos reales en una base de datos)
-data = {
-    "id_tramite": [f"TRM-{i:03}" for i in range(1, 21)],
-    "nombre_tramite": ["Licencia de Funcionamiento", "Permiso de Construcción", "Solicitud de Aguas", "Papeleo General", "Registro Civil"] * 4,
-    "estado": ["En espera", "En proceso", "Completado", "Pendiente", "Requiere revisión"] * 4,
-    "fecha_solicitud": [f"2023-05-{random.randint(1, 30):02}" for _ in range(20)],
-}
+# Cargar los datos desde el archivo CSV (simula una base de datos)
+@st.cache_data
+def cargar_tramites():
+    return pd.read_csv("tramites.csv")
 
-df_tramites = pd.DataFrame(data)
+df_tramites = cargar_tramites()
 
 # Título de la aplicación
 st.title("Sistema de Gestión de Trámites Municipales")
@@ -23,8 +19,15 @@ Puedes consultar el estado de tus trámites y recibir notificaciones sobre el av
 """)
 
 # Agregar un menú lateral para seleccionar la sección
+# Asegurémonos de que esta opción no se cree más de una vez
+if 'opcion' not in st.session_state:
+    st.session_state['opcion'] = "Consulta de Trámites"  # Opción por defecto
+
 menu = ["Consulta de Trámites", "Notificaciones", "Información General"]
-opcion = st.sidebar.selectbox("Selecciona una opción", menu)
+opcion = st.sidebar.selectbox("Selecciona una opción", menu, index=menu.index(st.session_state['opcion']))
+
+# Actualizar el estado de la opción seleccionada
+st.session_state['opcion'] = opcion
 
 if opcion == "Consulta de Trámites":
     # Consulta de trámites
@@ -34,13 +37,14 @@ if opcion == "Consulta de Trámites":
     id_tramite = st.text_input("Ingresa tu ID de trámite", "")
     
     if id_tramite:
-        # Verificar si el ID está en la base de datos simulada
+        # Verificar si el ID está en la base de datos
         if id_tramite in df_tramites["id_tramite"].values:
             tramite = df_tramites[df_tramites["id_tramite"] == id_tramite].iloc[0]
             st.write(f"**ID del Trámite**: {tramite['id_tramite']}")
             st.write(f"**Nombre del Trámite**: {tramite['nombre_tramite']}")
             st.write(f"**Estado**: {tramite['estado']}")
             st.write(f"**Fecha de Solicitud**: {tramite['fecha_solicitud']}")
+            st.write(f"**Prioridad**: {tramite['prioridad']}")
         else:
             st.error("No se ha encontrado un trámite con ese ID.")
     

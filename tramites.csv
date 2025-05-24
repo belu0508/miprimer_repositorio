@@ -1,0 +1,9 @@
+id_tramite,nombre_tramite,estado,fecha_solicitud,prioridad
+TRM-001,Licencia de Funcionamiento,En espera,2023-05-10,Alta
+TRM-002,Permiso de Construcción,Completado,2023-05-11,Baja
+TRM-003,Solicitud de Aguas,En proceso,2023-05-12,Media
+TRM-004,Papeleo General,Requiere revisión,2023-05-13,Media
+TRM-005,Registro Civil,Pendiente,2023-05-14,Alta
+TRM-006,Permiso de Construcción,En proceso,2023-05-15,Baja
+TRM-007,Licencia de Funcionamiento,En espera,2023-05-16,Media
+TRM-008,Registro Civil,Completado,2023-05-17,Alta
